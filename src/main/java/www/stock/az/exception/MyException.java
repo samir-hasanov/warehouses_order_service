@@ -1,5 +1,5 @@
 package www.stock.az.exception;
 
 public class MyException {
-    //main
+    //dev
 }
