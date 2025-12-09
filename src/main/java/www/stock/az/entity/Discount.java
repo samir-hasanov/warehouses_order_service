@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  * Discount entity - discount rules and campaigns
  */
 @Entity
-@Table(name = "discounts", schema = "click_user")
+@Table(name = "discounts")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor

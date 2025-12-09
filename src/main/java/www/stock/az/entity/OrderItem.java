@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * OrderItem entity - items in an order
  */
 @Entity
-@Table(name = "order_items", schema = "click_user")
+@Table(name = "order_items")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor

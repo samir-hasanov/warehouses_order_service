@@ -3,9 +3,6 @@ spring:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    properties:
-      hibernate:
-        default_schema: click_user
   datasource:
     url: "jdbc:postgresql://localhost:5432/warehouses_order"
     username: postgres

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * Price entity - manages product pricing (stock prices controlled by order service)
  */
 @Entity
-@Table(name = "prices", schema = "click_user", uniqueConstraints = {
+@Table(name = "prices", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"product_id", "warehouse_id", "price_type"})
 })
 @Data
