@@ -17,7 +17,7 @@ import java.util.List;
  * Order entity - manages orders and pricing
  */
 @Entity
-@Table(name = "orders", schema = "click_user")
+@Table(name = "orders", schema = "order_service")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor

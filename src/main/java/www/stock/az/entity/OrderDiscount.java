@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  * OrderDiscount entity - discounts applied to orders
  */
 @Entity
-@Table(name = "order_discounts", schema = "click_user")
+@Table(name = "order_discounts", schema = "order_service")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
