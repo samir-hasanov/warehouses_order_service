@@ -1,7 +1,12 @@
 package www.stock.az.exception;
 
-public class MyException {
-    //dev
-    //branch1
-    //lastupdated
+public class MyException extends RuntimeException {
+    
+    public MyException(String message) {
+        super(message);
+    }
+    
+    public MyException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
