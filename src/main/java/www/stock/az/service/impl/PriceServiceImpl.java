@@ -7,7 +7,8 @@ import www.stock.az.dto.request.PriceCreateRequest;
 import www.stock.az.dto.request.PriceUpdateRequest;
 import www.stock.az.dto.response.PriceResponse;
 import www.stock.az.entity.Price;
-import www.stock.az.exception.MyException;
+import www.stock.az.exception.ConflictException;
+import www.stock.az.exception.ResourceNotFoundException;
 import www.stock.az.repository.PriceRepository;
 import www.stock.az.service.PriceService;
 
@@ -31,7 +32,7 @@ public class PriceServiceImpl implements PriceService {
                 request.getWarehouseId(), 
                 request.getPriceType()
             ).ifPresent(existing -> {
-                throw new MyException("Price already exists for this product, warehouse, and price type");
+                throw new ConflictException("Price already exists for this product, warehouse, and price type");
             });
         } else {
             // Check for global price (warehouseId is null)
@@ -39,7 +40,7 @@ public class PriceServiceImpl implements PriceService {
                 request.getProductId(), 
                 request.getPriceType()
             ).ifPresent(existing -> {
-                throw new MyException("Global price already exists for this product and price type");
+                throw new ConflictException("Global price already exists for this product and price type");
             });
         }
         
@@ -62,7 +63,7 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public PriceResponse findById(Long id) {
         Price price = priceRepository.findById(id)
-            .orElseThrow(() -> new MyException("Price not found with id: " + id));
+            .orElseThrow(() -> new ResourceNotFoundException("Price not found with id: " + id));
         return mapToResponse(price);
     }
     
@@ -91,7 +92,7 @@ public class PriceServiceImpl implements PriceService {
     public PriceResponse getCurrentPrice(Long productId, Long warehouseId, String priceType) {
         LocalDateTime now = LocalDateTime.now();
         Price price = priceRepository.findCurrentPrice(productId, warehouseId, priceType, now)
-            .orElseThrow(() -> new MyException("Current price not found for product: " + productId + 
+            .orElseThrow(() -> new ResourceNotFoundException("Current price not found for product: " + productId + 
                 ", warehouse: " + warehouseId + ", priceType: " + priceType));
         return mapToResponse(price);
     }
@@ -107,7 +108,7 @@ public class PriceServiceImpl implements PriceService {
     @Transactional
     public PriceResponse update(Long id, PriceUpdateRequest request) {
         Price price = priceRepository.findById(id)
-            .orElseThrow(() -> new MyException("Price not found with id: " + id));
+            .orElseThrow(() -> new ResourceNotFoundException("Price not found with id: " + id));
         
         if (request.getWarehouseId() != null) {
             price.setWarehouseId(request.getWarehouseId());
@@ -145,7 +146,7 @@ public class PriceServiceImpl implements PriceService {
     @Transactional
     public void delete(Long id) {
         if (!priceRepository.existsById(id)) {
-            throw new MyException("Price not found with id: " + id);
+            throw new ResourceNotFoundException("Price not found with id: " + id);
         }
         priceRepository.deleteById(id);
     }
